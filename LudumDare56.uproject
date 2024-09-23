@@ -1,0 +1,26 @@
+{
+	"FileVersion": 3,
+	"EngineAssociation": "{6AE25FB0-4CA1-6BAA-5AEE-FEABE084A8EF}",
+	"Category": "",
+	"Description": "",
+	"Modules": [
+		{
+			"Name": "LudumDare56",
+			"Type": "Runtime",
+			"LoadingPhase": "Default"
+		}
+	],
+	"Plugins": [
+		{
+			"Name": "ModelingToolsEditorMode",
+			"Enabled": true,
+			"TargetAllowList": [
+				"Editor"
+			]
+		},
+		{
+			"Name": "EditorTelemetry",
+			"Enabled": true
+		}
+	]
+}
