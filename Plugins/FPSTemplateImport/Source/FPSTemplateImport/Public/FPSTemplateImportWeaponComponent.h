@@ -46,7 +46,7 @@ public:
 	bool AttachWeapon(AFPSTemplateImportCharacter* TargetCharacter);
 
 	/** Make the weapon Fire a Projectile */
-	UFUNCTION(BlueprintCallable, Category="Weapon")
+	UFUNCTION(BlueprintCallable, BlueprintNativeEvent, Category="Weapon")
 	void Fire();
 
 protected:

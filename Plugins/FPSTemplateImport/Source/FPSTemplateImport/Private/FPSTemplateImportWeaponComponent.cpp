@@ -21,7 +21,7 @@ UFPSTemplateImportWeaponComponent::UFPSTemplateImportWeaponComponent()
 }
 
 
-void UFPSTemplateImportWeaponComponent::Fire()
+void UFPSTemplateImportWeaponComponent::Fire_Implementation()
 {
 	if (Character == nullptr || Character->GetController() == nullptr)
 	{
