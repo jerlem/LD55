@@ -27,16 +27,13 @@ void AAActorSpawner::SpawnActorsList(TSubclassOf<AActor> ActorClass, TArray<FTra
 	}
 }
 
-// Sets default values
-AAActorSpawner::AAActorSpawner()
-{
-	PrimaryActorTick.bCanEverTick = false;
-}
 
 // Called when the game starts or when spawned
 void AAActorSpawner::BeginPlay()
 {
 	Super::BeginPlay();
+
+	UE_LOG(LogTemp, Warning, TEXT("Begin"));
 	
 	World = GetWorld();
 

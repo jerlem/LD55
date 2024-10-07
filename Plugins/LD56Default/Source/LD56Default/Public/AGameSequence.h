@@ -9,6 +9,7 @@
 UENUM(BlueprintType)
 enum WaveStatus : uint8
 {
+	Init,
 	Idle,
 	Started,
 	Finished
@@ -24,34 +25,22 @@ struct FBoid
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FVector Position;
-};
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FRotator Rotation;
+};
 
 USTRUCT(BlueprintType)
 struct FWave
 {
-	GENERATED_BODY();
+	GENERATED_BODY()
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TMap<AActor*, FBoid> MapBoid;
-};
+	float Timer;
 
-//USTRUCT(BlueprintType)
-//struct FWave
-//{
-//	GENERATED_BODY()
-//
-//	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-//	float Timer;
-//
-//	TMap<AActor*, FBoid> Boid;
-//
-//	FWave(float timer, TMap<AActor*, FBoid> boid)
-//	{
-//		Timer = timer;
-//		Boid = boid;
-//	}
-//};
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TMap<AActor*, FBoid> Data;
+};
 
 UCLASS()
 class LD56DEFAULT_API AAGameSequence : public AActor
@@ -62,20 +51,24 @@ public:
 	// Sets default values for this actor's properties
 	AAGameSequence();
 
-	//<FWave> Waves;
-	FWave Wave1;
-	FWave Wave2;
-	FWave Wave3;
+	UFUNCTION(BlueprintCallable)
+	void OnWeaponPicked();
 
+	UFUNCTION(BlueprintCallable)
+	void ChangeWaveStatus(WaveStatus Status);
+
+	virtual void BeginPlay() override;
+	virtual void Tick(float DeltaTime) override;
+
+	float WaveStartTimer = 0.0f;
+	int CurrentWaveIndex = 1;
+
+	TMap<AActor*, FBoid> CurrentWave;
+
+	WaveStatus CurrentWaveStatus = WaveStatus::Init;
 
 protected:
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
-
-public:	
-	// Called every frame
-	// virtual void Tick(float DeltaTime) override;
-
-	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TArray<FWave> Waves;
 	
 };

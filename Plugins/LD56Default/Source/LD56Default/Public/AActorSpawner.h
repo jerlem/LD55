@@ -19,7 +19,6 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Spawner")
 	void SpawnActorsList(TSubclassOf<AActor> ActorClass, TArray<FTransform> transform);
 
-	AAActorSpawner();
 
 protected:
 	// Called when the game starts or when spawned

@@ -6,7 +6,7 @@
 #include "GameFramework/Actor.h"
 #include "APooledObject.generated.h"
 
-// DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FActorStateChangedDelegate, AActor*, Actor);
+//DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FActorStateChangedDelegate, AActor*, Actor);
 
 UCLASS(Blueprintable, ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))
 class LD56DEFAULT_API AAPooledObject : public AActor
@@ -37,11 +37,13 @@ private:
 
 	int Index;
 
-	void Next();
+	UFUNCTION(BlueprintCallable)
+	void Next(FVector Position, FRotator Rotation);
 	
 	void HideActor(int Idx);
 
-	void ShowActor(int Idx, FVector Position = FVector().ZeroVector, FRotator = FRotator().ZeroRotator);
+	void ShowActor(int Idx, FVector Position, FRotator Rotation);
 	
-	void SetActorVisibility(AActor* Act, bool visible);
+	void SetActorShown(AActor* Act, bool visible);
+
 };

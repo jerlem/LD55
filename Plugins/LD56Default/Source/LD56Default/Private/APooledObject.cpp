@@ -9,6 +9,7 @@ AAPooledObject::AAPooledObject()
 {
 	PrimaryActorTick.bCanEverTick = false;
 
+	UE_LOG(LogTemp, Log, TEXT("Init Pool"));
 }
 
 void AAPooledObject::Clear()
@@ -23,12 +24,15 @@ void AAPooledObject::Init(TSubclassOf<AActor> ActorClass, int Size)
 	Index = 0;
 
 	if (Size > 0)
+	{
 		PoolSize = Size;
+	}
 
 	for (int i = 0; i < PoolSize; i++) 
 	{
-		AActor* SpawnedActor = GetWorld()->SpawnActor<AActor>(ActorClass, FVector().ZeroVector, FRotator().ZeroRotator, SpawnParameters);
-		Actors[i] = SpawnedActor;
+		FVector newPosition = FVector(0, i * 100, -1000);
+		AActor* SpawnedActor = GetWorld()->SpawnActor<AActor>(ActorClass, newPosition, FRotator().ZeroRotator, SpawnParameters);
+		Actors.Add(SpawnedActor);
 	}
 }
 
@@ -37,10 +41,9 @@ void AAPooledObject::BeginPlay()
 	Super::BeginPlay();
 
 	Init(ActorType, PoolSize);
-	
 }
 
-void AAPooledObject::Next()
+void AAPooledObject::Next(FVector Position, FRotator Rotation)
 {
 	HideActor(Index);
 
@@ -51,31 +54,26 @@ void AAPooledObject::Next()
 		Index = 0;
 	}
 
-	ShowActor(Index);
+	ShowActor(Index, Position, Rotation);
 }
 
 void AAPooledObject::HideActor(int Idx)
 {
-	SetActorVisibility(Actors[Idx], false);
+	SetActorShown(Actors[Idx], false);
 }
 
 void AAPooledObject::ShowActor(int Idx, FVector Position, FRotator Rotation)
 {
 	AActor* actor = Actors[Idx];
-	SetActorVisibility(Actors[Idx], true);
+	actor->SetActorLocation(Position);
+	actor->SetActorRotation(Rotation);
 
-	if (Position != FVector().ZeroVector)
-	{
-		actor->SetActorLocation(Position);
-	}
-
-	if(Rotation != FRotator().ZeroRotator)
-	{
-		actor->SetActorRotation(Rotation);
-	}
+	SetActorShown(Actors[Idx], true);
 }
 
-void AAPooledObject::SetActorVisibility(AActor* Act, bool visible)
+void AAPooledObject::SetActorShown(AActor* Act, bool Visible)
 {
-	Act->SetActorHiddenInGame(visible);
+	Act->SetActorHiddenInGame(Visible);
+	Act->SetActorTickEnabled(Visible);
+	Act->SetActorEnableCollision(Visible);
 }
