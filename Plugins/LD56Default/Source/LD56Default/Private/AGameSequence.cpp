@@ -8,7 +8,7 @@ AAGameSequence::AAGameSequence()
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
-	CurrentWaveIndex = 1;
+	CurrentWaveIndex = 0;
 	CurrentWaveStatus = WaveStatus::Init;
 }
 
@@ -18,7 +18,7 @@ AAGameSequence::AAGameSequence()
 void AAGameSequence::OnWeaponPicked()
 {
 	UE_LOG(LogTemp, Log, TEXT("Weapon picked. starting game"));
-	CurrentWaveIndex = 1;
+	CurrentWaveIndex = 0;
 	ChangeWaveStatus(WaveStatus::Idle);
 }
 
@@ -69,6 +69,9 @@ void AAGameSequence::BeginPlay()
 
 void AAGameSequence::Tick(float DeltaTime)
 {
+	// Call parent class Tick
+	Super::Tick(DeltaTime);
+
 	// Check for timer to start Wave
 	if (WaveStartTimer != -1.0f)
 	{
