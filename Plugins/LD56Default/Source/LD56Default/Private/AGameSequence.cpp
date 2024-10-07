@@ -31,7 +31,7 @@ void AAGameSequence::ChangeWaveStatus(WaveStatus Status)
 	{
 		UE_LOG(LogTemp, Log, TEXT("[AGameSequence.ChangeWaveStatus] Starting timer for Wave"));
 		WaveStartTimer = Waves[CurrentWaveIndex].Timer;
-		//CurrentWave = Waves[CurrentWaveIndex].Data;
+		CurrentWave = Waves[CurrentWaveIndex].Data;
 	}
 	// Wave has started
 	else if (Status == WaveStatus::Started)
@@ -57,9 +57,10 @@ void AAGameSequence::ChangeWaveStatus(WaveStatus Status)
 	}
 }
 
-void AAGameSequence::OnWaveStarted_Implementation()
-{
-}
+void AAGameSequence::OnWaveStarted_Implementation() { }
+void AAGameSequence::OnWaveEnded_Implementation() { }
+void AAGameSequence::OnGameOver_Implementation() { }
+void AAGameSequence::Win_Implementation() { }
 
 void AAGameSequence::BeginPlay()
 {

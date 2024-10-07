@@ -7,7 +7,7 @@
 #include "AGameSequence.generated.h"
 
 UENUM(BlueprintType)
-enum WaveStatus : uint8
+enum class WaveStatus : uint8
 {
 	Init,
 	Idle,
@@ -39,7 +39,7 @@ struct FWave
 	float Timer;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TMap<AActor*, FBoid> Data;
+	TMap<TSubclassOf<AActor>, FBoid> Data;
 };
 
 UCLASS()
@@ -73,15 +73,19 @@ public:
 
 	virtual void Tick(float DeltaTime) override;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float WaveStartTimer = 0.0f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int CurrentWaveIndex = 1;
 
-	TMap<TSubclassOf<AActor>*, FBoid> CurrentWave;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TMap<TSubclassOf<AActor>, FBoid> CurrentWave;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	WaveStatus CurrentWaveStatus;
 
 protected:
-
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TArray<FWave> Waves;
 
