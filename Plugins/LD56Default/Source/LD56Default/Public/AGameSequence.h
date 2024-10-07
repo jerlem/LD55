@@ -46,8 +46,8 @@ UCLASS()
 class LD56DEFAULT_API AAGameSequence : public AActor
 {
 	GENERATED_BODY()
-	
-public:	
+
+public:
 	// Sets default values for this actor's properties
 	AAGameSequence();
 
@@ -57,18 +57,32 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void ChangeWaveStatus(WaveStatus Status);
 
+	UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
+	void OnWaveStarted();
+
+	UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
+	void OnWaveEnded();
+
+	UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
+	void OnGameOver();
+
+	UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
+	void Win();
+
 	virtual void BeginPlay() override;
+
 	virtual void Tick(float DeltaTime) override;
 
 	float WaveStartTimer = 0.0f;
 	int CurrentWaveIndex = 1;
 
-	TMap<AActor*, FBoid> CurrentWave;
+	TMap<TSubclassOf<AActor>*, FBoid> CurrentWave;
 
-	WaveStatus CurrentWaveStatus = WaveStatus::Init;
+	WaveStatus CurrentWaveStatus;
 
 protected:
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TArray<FWave> Waves;
-	
+
 };

@@ -1,8 +1,6 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-
 #include "AGameSequence.h"
-
 
 // Sets default values
 AAGameSequence::AAGameSequence()
@@ -11,7 +9,7 @@ AAGameSequence::AAGameSequence()
 	PrimaryActorTick.bCanEverTick = true;
 
 	CurrentWaveIndex = 1;
-	CurrentWaveStatus = WaveStatus::Idle;
+	CurrentWaveStatus = WaveStatus::Init;
 }
 
 /*
@@ -31,22 +29,36 @@ void AAGameSequence::ChangeWaveStatus(WaveStatus Status)
 	// Setting timer for new wave
 	if (Status == WaveStatus::Idle)
 	{
-		UE_LOG(LogTemp, Log, TEXT("Starting timer for Wave"));
+		UE_LOG(LogTemp, Log, TEXT("[AGameSequence.ChangeWaveStatus] Starting timer for Wave"));
 		WaveStartTimer = Waves[CurrentWaveIndex].Timer;
-		CurrentWave = Waves[CurrentWaveIndex].Data;
+		//CurrentWave = Waves[CurrentWaveIndex].Data;
 	}
 	// Wave has started
 	else if (Status == WaveStatus::Started)
 	{
-		UE_LOG(LogTemp, Log, TEXT("Wave has started"));
+		UE_LOG(LogTemp, Log, TEXT("[AGameSequence.ChangeWaveStatus] Wave has started"));
+		OnWaveStarted();
 	}
 	// change wave if finished;
 	if (Status == WaveStatus::Finished)
 	{
-		UE_LOG(LogTemp, Log, TEXT("Wave Finished"));
+		UE_LOG(LogTemp, Log, TEXT("[AGameSequence.ChangeWaveStatus] Wave Finished"));
 		CurrentWaveIndex++;
+
+		UE_LOG(LogTemp, Log, TEXT("[AGameSequence.ChangeWaveStatus] Starting wave %d of %d"), CurrentWaveIndex , Waves.Num());
+		if (CurrentWaveIndex > Waves.Num())
+		{
+			UE_LOG(LogTemp, Log, TEXT("[AGameSequence.ChangeWaveStatus] Victory"));
+			Win();
+		}
 		CurrentWaveStatus = WaveStatus::Idle;
+		OnWaveEnded();
+
 	}
+}
+
+void AAGameSequence::OnWaveStarted_Implementation()
+{
 }
 
 void AAGameSequence::BeginPlay()
