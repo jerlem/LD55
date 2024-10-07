@@ -20,5 +20,11 @@
 			"Type": "Runtime",
 			"LoadingPhase": "Default"
 		}
+	],
+	"Dependencies": [
+		{
+			"Name": "Niagara",
+			"Enabled": true
+		}
 	]
 }

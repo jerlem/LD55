@@ -26,6 +26,7 @@ public class LD56Default : ModuleRules
 			new string[]
 			{
 				"Core",
+				"Niagara",
 				// ... add other public dependencies that you statically link with here ...
 			}
 			);
