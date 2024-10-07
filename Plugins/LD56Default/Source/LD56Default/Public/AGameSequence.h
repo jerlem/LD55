@@ -77,7 +77,7 @@ public:
 	float WaveStartTimer = 0.0f;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int CurrentWaveIndex = 1;
+	int CurrentWaveIndex;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TMap<TSubclassOf<AActor>, FBoid> CurrentWave;

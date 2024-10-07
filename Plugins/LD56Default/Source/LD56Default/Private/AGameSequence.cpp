@@ -10,6 +10,7 @@ AAGameSequence::AAGameSequence()
 
 	CurrentWaveIndex = 0;
 	CurrentWaveStatus = WaveStatus::Init;
+	WaveStartTimer = -1.0f;
 }
 
 /*
@@ -17,9 +18,9 @@ AAGameSequence::AAGameSequence()
  */
 void AAGameSequence::OnWeaponPicked()
 {
-	UE_LOG(LogTemp, Log, TEXT("Weapon picked. starting game"));
+	/*UE_LOG(LogTemp, Log, TEXT("Weapon picked. starting game"));
 	CurrentWaveIndex = 0;
-	ChangeWaveStatus(WaveStatus::Idle);
+	ChangeWaveStatus(WaveStatus::Idle);*/
 }
 
 void AAGameSequence::ChangeWaveStatus(WaveStatus Status)
@@ -37,6 +38,7 @@ void AAGameSequence::ChangeWaveStatus(WaveStatus Status)
 	else if (Status == WaveStatus::Started)
 	{
 		UE_LOG(LogTemp, Log, TEXT("[AGameSequence.ChangeWaveStatus] Wave has started"));
+		//CurrentWaveIndex++;
 		OnWaveStarted();
 	}
 	// change wave if finished;
