@@ -45,7 +45,7 @@ void AAGameSequence::ChangeWaveStatus(WaveStatus Status)
 	if (Status == WaveStatus::Finished)
 	{
 		UE_LOG(LogTemp, Log, TEXT("[AGameSequence.ChangeWaveStatus] Wave Finished"));
-		// CurrentWaveIndex++;
+		CurrentWaveIndex++;
 
 		UE_LOG(LogTemp, Log, TEXT("[AGameSequence.ChangeWaveStatus] Starting wave %d of %d"), CurrentWaveIndex , Waves.Num());
 		if (CurrentWaveIndex > Waves.Num())
